@@ -1,0 +1,41 @@
+if [ -n "$1" ]; then
+  cd $1;
+  session_name=`echo $1 | sed -e 's/[^a-zA-Z0-9\/_\-]/-/g'`;
+fi
+sessions=("${(@f)$(tmux list-sessions 2>/dev/null | awk '{ print $1 " " $11 }' | sed -e 's/://')}")
+if [ -z "$sessions" ]; then # no session active
+  if [ -z "$session_name" ]; then
+    session_name=`hexdump -n 8 -v -e '/1 "%02X"' /dev/urandom`;
+  fi
+  tmux new-session -d -s $session_name;
+  tmux -2 attach-session -t $session_name;
+else
+  def=("-- new session" "-- cancel")
+  sessions=($def $sessions)
+  OLD_COLUMNS=$COLUMNS
+  COLUMNS=1
+  select var in $sessions; do
+    case $var in
+      "-- new session")
+        if [ -z "$session_name" ]; then
+          session_name=`hexdump -n 8 -v -e '/1 "%02X"' /dev/urandom`;
+        fi
+        tmux new-session -d -s $session_name
+        tmux -2 attach-session -t $session_name
+        break
+        ;;
+      "-- cancel")
+        break
+        ;;
+      "")
+        ;;
+      *)
+        session_name=`echo $var | awk '{ print $1 }'`
+        tmux new-session -d -s $session_name
+        tmux -2 attach-session -t $session_name
+        break
+        ;;
+    esac
+  done
+  COLUMNS=$OLD_COLUMNS
+fi
