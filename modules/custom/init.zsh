@@ -42,9 +42,9 @@ alias tail='less +F'
 alias tl='tmux list-sessions'
 alias top='/usr/bin/top -ocpu -R -F -s 2 -n30'
 alias v='nvim'
-alias vdiff='nvimdiff'
+alias vdiff='nvim -d'
 alias vim='nvim'
-alias vimdiff='nvimdiff'
+alias vimdiff='nvim -d'
 alias gt='gittower'
 
 alias t=tmux_setup
