@@ -1,6 +1,15 @@
 #
 # Custom aliases/settings
 #
+platform='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+   platform='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+   platform='freebsd'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+   platform='darwin'
+fi
 
 # any custom stuff should go here.
 # ensure that 'custom' exists in the zmodules array in your .zimrc
@@ -20,7 +29,11 @@ alias dh='dirs -v'
 alias gst=gwS
 #alias gup='git up'
 alias k='kill -9'
-alias ls='ls --color --group-directories-first'
+if [[ $platform == 'linux' ]]; then
+  alias ls='ls --color --group-directories-first'
+elif [[ $platform == 'freebsd' || $platform == 'darwin' ]]; then
+  alias ls='/usr/local/bin/gls --color --group-directories-first'
+fi
 alias man='LC_ALL=C LANG=C man'
 alias r='bundle exec rake'
 alias rd='bundle exec rake device'
@@ -32,6 +45,7 @@ alias v='nvim'
 alias vdiff='nvimdiff'
 alias vim='nvim'
 alias vimdiff='nvimdiff'
+alias gt='gittower'
 
 alias t=tmux_setup
 alias gon=go_workon
@@ -48,13 +62,28 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export PAGER
 export GEMS_PATH
-export PATH="/var/www/bin:/var/www/.composer/vendor/bin:/var/www/.local/bin:/var/www/.gem/ruby/2.1.0/bin:$PATH"
+export PATH="~/bin:~/.composer/vendor/bin:~/.local/bin:~/.gem/ruby/2.1.0/bin:$PATH"
 
-source /usr/share/autojump/autojump.sh
+if [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]]; then
+  source $(brew --prefix)/etc/profile.d/autojump.sh;
+elif [[ -f /usr/share/autojump/autojump.sh ]]; then
+  source /usr/share/autojump/autojump.sh;
+fi
+
+[[ -f ~/.dircolors ]] && eval `gdircolors ~/.dircolors`
 
 zstyle -s ':completion:*:hosts' hosts _ssh_config
 [[ -r ~/.ssh/config  ]] && _ssh_config+=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p'))
 zstyle ':completion:*:hosts' hosts $_ssh_config
+
+if [[ $platform == 'darwin' ]]; then
+  alias man=dash_man
+  BASE16_SHELL="$HOME/.config/base16-shell/base16-tomorrow.dark.sh"
+  [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
+  # Quick way to rebuild the Launch Services database and get rid
+  # of duplicates in the Open With submenu.
+  alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
+fi
 
 bindkey -e
 bindkey '^R' history-incremental-search-backward
