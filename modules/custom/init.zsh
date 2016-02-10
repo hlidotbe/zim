@@ -62,15 +62,14 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export PAGER
 export GEMS_PATH
-export PATH="~/bin:~/.composer/vendor/bin:~/.local/bin:~/.gem/ruby/2.1.0/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.composer/vendor/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.1.0/bin:$PATH"
 
-if [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]]; then
-  source $(brew --prefix)/etc/profile.d/autojump.sh;
-elif [[ -f /usr/share/autojump/autojump.sh ]]; then
+if [[ -f /usr/share/autojump/autojump.sh ]]; then
   source /usr/share/autojump/autojump.sh;
+elif [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]]; then
+  source $(brew --prefix)/etc/profile.d/autojump.sh;
 fi
 
-[[ -f ~/.dircolors ]] && eval `gdircolors ~/.dircolors`
 
 zstyle -s ':completion:*:hosts' hosts _ssh_config
 [[ -r ~/.ssh/config  ]] && _ssh_config+=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p'))
@@ -83,6 +82,9 @@ if [[ $platform == 'darwin' ]]; then
   # Quick way to rebuild the Launch Services database and get rid
   # of duplicates in the Open With submenu.
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
+  [[ -f ~/.dircolors ]] && eval `gdircolors ~/.dircolors`
+else
+  [[ -f ~/.dircolors ]] && eval `dircolors ~/.dircolors`
 fi
 
 bindkey -e
