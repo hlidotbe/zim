@@ -15,30 +15,13 @@ fi
 # ensure that 'custom' exists in the zmodules array in your .zimrc
 
 alias dh='dirs -v'
-#alias g='git'
-#alias gai='git add -v -i'
-#alias gcp='git commit -v -p'
-#alias gcpa='git commit -v -p -a'
-#alias gitserve='git daemon --reuseaddr --export-all'
-#alias gl="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
-#alias gla="git log -1 --pretty='%s'"
-#alias gm='git merge --no-ff'
-#alias gp='git push --follow-tags'
-#alias grb='git rebase -p'
-#alias gru='git rebase @{u}'
 alias gst=gwS
-#alias gup='git up'
+alias gup='git up'
 alias k='kill -9'
-if [[ $platform == 'linux' ]]; then
-  alias ls='ls --color --group-directories-first'
-elif [[ $platform == 'freebsd' || $platform == 'darwin' ]]; then
-  alias ls='/usr/local/bin/gls --color --group-directories-first'
-fi
 alias man='LC_ALL=C LANG=C man'
 alias r='bundle exec rake'
 alias rd='bundle exec rake device'
 alias tags='git tag | sort -V'
-alias tail='less +F'
 alias tl='tmux list-sessions'
 alias top='/usr/bin/top -ocpu -R -F -s 2 -n30'
 alias v='nvim'
@@ -76,6 +59,8 @@ zstyle -s ':completion:*:hosts' hosts _ssh_config
 zstyle ':completion:*:hosts' hosts $_ssh_config
 
 if [[ $platform == 'darwin' ]]; then
+  alias ls='/usr/local/bin/gls --color --group-directories-first'
+  alias clip="nc localhost 8377"
   alias man=dash_man
   BASE16_SHELL="$HOME/.config/base16-shell/base16-tomorrow.dark.sh"
   [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
@@ -85,7 +70,11 @@ if [[ $platform == 'darwin' ]]; then
   [[ -f ~/.dircolors ]] && eval `gdircolors ~/.dircolors`
 else
   [[ -f ~/.dircolors ]] && eval `dircolors ~/.dircolors`
+  alias ls='ls --color --group-directories-first'
+  alias clip="nc -q 0 localhost 8377"
 fi
+
+eval $(thefuck --alias)
 
 bindkey -e
 bindkey '^R' history-incremental-search-backward
