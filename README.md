@@ -38,7 +38,9 @@ Zim has many modules! Enable as many or as few as you'd like.
 Installation
 ------------
 Installing Zim is easy. If you have a different shell framework installed (like oh-my-zsh or prezto),
-uninstall those first to prevent conflicts.
+uninstall those first to prevent conflicts. Arch users can install 
+[zsh-zim-git](https://aur.archlinux.org/packages/zsh-zim-git/) from the AUR. It can be installed manually
+by following the instructions below:
 
 1. In a Zsh shell, clone the repository:
   ```
@@ -50,13 +52,14 @@ uninstall those first to prevent conflicts.
   setopt EXTENDED_GLOB
   for template_file ( ${ZDOTDIR:-${HOME}}/.zim/templates/* ); do
     user_file="${ZDOTDIR:-${HOME}}/.${template_file:t}"
+    touch ${user_file}
     ( print -n "$(<${template_file})\n$(<${user_file})" >! ${user_file} ) 2>/dev/null
   done
   ```
 
 3. Set Zsh as the default shell:
   ```
-  chsh -s ${commands[zsh]}
+  chsh -s =zsh
   ```
 
 4. Open a new terminal and finish optimization (this is only needed once, hereafter it will happen upon desktop/tty login):
