@@ -62,8 +62,8 @@ if [[ $platform == 'darwin' ]]; then
   alias ls='/usr/local/bin/gls --color --group-directories-first'
   alias clip="nc localhost 8377"
   alias man=dash_man
-  BASE16_SHELL="$HOME/.config/base16-shell/base16-tomorrow.dark.sh"
-  [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
+  #BASE16_SHELL="$HOME/.config/base16-shell/base16-tomorrow.dark.sh"
+  #[[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
   # Quick way to rebuild the Launch Services database and get rid
   # of duplicates in the Open With submenu.
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
