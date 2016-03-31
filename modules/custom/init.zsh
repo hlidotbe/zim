@@ -78,3 +78,5 @@ eval $(thefuck --alias)
 
 bindkey -e
 bindkey '^R' history-incremental-search-backward
+
+eval "$(rbenv init -)"
