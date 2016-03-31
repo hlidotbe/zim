@@ -45,7 +45,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export PAGER
 export GEMS_PATH
-export PATH="$HOME/bin:$HOME/.composer/vendor/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.composer/vendor/bin:$HOME/.local/bin:$HOME/.rbenv/bin:$PATH"
 
 if [[ -f /usr/share/autojump/autojump.sh ]]; then
   source /usr/share/autojump/autojump.sh;
@@ -79,4 +79,4 @@ eval $(thefuck --alias)
 bindkey -e
 bindkey '^R' history-incremental-search-backward
 
-eval "$(~/.rbenv/bin/rbenv init -)"
+eval "$(rbenv init -)"
