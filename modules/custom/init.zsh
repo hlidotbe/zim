@@ -45,7 +45,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export PAGER
 export GEMS_PATH
-export PATH="$HOME/bin:$HOME/.composer/vendor/bin:$HOME/.local/bin:$HOME/.rbenv/bin:$PATH"
+export PATH="./bin:$HOME/bin:$HOME/.composer/vendor/bin:$HOME/.local/bin:$HOME/.rbenv/bin:$PATH"
 
 if [[ -f /usr/share/autojump/autojump.sh ]]; then
   source /usr/share/autojump/autojump.sh;
