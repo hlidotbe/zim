@@ -14,9 +14,19 @@ fi
 # any custom stuff should go here.
 # ensure that 'custom' exists in the zmodules array in your .zimrc
 
-alias d='dirs -v | head -10'
-alias dh='dirs -v'
+alias d=docker
+alias drun='docker run'
+alias di='docker images'
+alias dri='docker rmi'
+alias dp='docker ps'
+alias drp='docker rm'
+alias dpa='docker ps -a'
+alias db='docker build'
+alias dt='docker tag'
+alias dei='docker exec -it'
+alias de='docker exec -t'
 alias gst=gwS
+alias gt='gittower'
 alias gup='git up'
 alias k='kill -9'
 alias man='LC_ALL=C LANG=C man'
@@ -29,7 +39,6 @@ alias v='nvim'
 alias vdiff='nvim -d'
 alias vim='nvim'
 alias vimdiff='nvim -d'
-alias gt='gittower'
 
 alias t=tmux_setup
 alias gon=go_workon
